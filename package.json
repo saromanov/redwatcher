@@ -1,0 +1,23 @@
+{
+  "name": "redwatcher",
+  "version": "0.0.1",
+  "description": "Store commands",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saromanov/redwatcher.git"
+  },
+  "author": "Sergey Romanov <xxsmotur@gmail.com> (https://github.com/saromanov)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/saromanov/redwatcher/issues"
+  },
+  "homepage": "https://github.com/saromanov/redwatcher#readme",
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "mongoose": "^4.4.10"
+  }
+}
