@@ -8,13 +8,14 @@ var Schema = mongoose.Schema;
 
 var itemSchema = new Schema({
 	command: String,
+	hostname: String,
 	created_at:Date,
 });
 
 itemSchema.pre('save', function(next){
 		var current = new Date();
 		this.created_at = new Date();
-
+		this.hostname = os.hostname();
 		next();
 });
 
@@ -55,6 +56,15 @@ function statusCommand(command){
 	});
 }
 
+function removeCommand(command) {
+	Command.find({command: command}, function(err, comm){
+		if(err) throw err;
+		Command.remove({command: command}, function(err){
+			if(err) throw err;
+		});
+	});
+}
+
 function start(){
 	var command = argv["add"];
 	if (command != '' && command !== undefined) {
@@ -64,11 +74,17 @@ function start(){
 	if(status !== undefined) {
 		statusCommand(status);
 	}
+
+	var del = argv["remove"]
+	if(del !== undefined) {
+		removeCommand(del);
+	}
 }
 
 function connect() {
 	mongoose.connect('mongodb://localhost/redwatcher');
 }
+
 
 connect();
 start()
