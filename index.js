@@ -5,6 +5,8 @@ var db = mongoose.connection;
 require('shelljs/global');
 var Schema = mongoose.Schema;
 
+var execChild = require('child_process').exec;
+
 
 var itemSchema = new Schema({
 	command: String,
@@ -37,12 +39,18 @@ function add(command, title) {
 		command: command
 	});
 
-	pts.save(function(err){
+	/*pts.save(function(err){
 		if(err) throw err;
-	});
+	});*/
 	dict[title] = item;
-	var result = exec(command + "&", {async:true, silent:true});
-	console.log(result.pid);
+	/*var result = exec(command, {async:true});
+	console.log(result.pid);*/
+
+	execChild(command, function(err, stdout, stderr){
+		console.log(err);
+		console.log(stdout);
+		console.log(stderr)
+	});
 }
 
 // Return list of known commands
